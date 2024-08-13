@@ -35,15 +35,15 @@ FROM [dbo].[ADIDDASSALE];```
 
 
 -- Calculate the overall total sales for both years combined
-SELECT
+```SELECT
     SUM(Total_Sales) AS OverallTotalSales
 FROM
     [dbo].[ADIDDASSALE]
 WHERE
-    YEAR(invoice_date) IN (2020, 2021);
+    YEAR(invoice_date) IN (2020, 2021);```
 
 -- Calculate the total sales for each region for the years 2020 and 2021
-SELECT
+``SELECT
     YEAR(invoice_date) AS Year,       -- Extracts the year from the invoice_date
     Region,                           -- Specifies the region
     SUM(Total_Sales) AS TotalSales    -- Sums up the Total_Sales for each combination of year and region
@@ -1011,5 +1011,5 @@ ON
     r.Retailer = t.Retailer
 ORDER BY
     r.Retailer,
-    r.Year;
+    r.Year;```
 
