@@ -27,11 +27,11 @@ For scenarios where I calculate multiple metrics (like `TotalSales` and `Average
 The queries I’ve prepared cover a broad range of analyses, from simple aggregations to more complex rankings and comparisons. The structure and explanations I’ve added make the SQL highly readable and easy to understand, which is essential for maintaining and sharing my work.
 
 
-USE [YEMIFATODU2db];
+```USE [YEMIFATODU2db];
 
 -- Retrieve all columns from the ADIDDASSALE table
 SELECT *
-FROM [dbo].[ADIDDASSALE];
+FROM [dbo].[ADIDDASSALE];```
 
 
 -- Calculate the overall total sales for both years combined
@@ -184,6 +184,7 @@ ORDER BY
     Year,
     Region;
 
+
 -- Calculate Total and Average Sales for Each Region and Year
 SELECT
     YEAR(invoice_date) AS Year,
@@ -229,7 +230,7 @@ GROUP BY
 ORDER BY
     Year,
     Region;
-
+---
 -- Calculate the Average Units Sold Per Region for Each Year
 SELECT
     YEAR(invoice_date) AS Year,
@@ -421,6 +422,7 @@ ORDER BY
     r.Year,
     r.Region;
 
+
 -- Regional Breakdown for Each Year (Example for South Region)
 WITH RegionalData AS (
     SELECT
@@ -438,6 +440,7 @@ WITH RegionalData AS (
         YEAR(invoice_date),
         Region
 )
+
 
 -- Month-by-Month Sales Analysis for South Region
 WITH MonthlySales AS (
@@ -761,6 +764,7 @@ GROUP BY
 ORDER BY
     SalesValue DESC;
 
+
 -- Top 3 Product Categories by Sales for the Southeast Region
 SELECT TOP 3
     Product AS Category,
@@ -774,6 +778,7 @@ GROUP BY
 ORDER BY
     SalesValue DESC;
 
+
 -- Top 3 Product Categories by Sales for the Midwest Region
 SELECT TOP 3
     Product AS Category,
@@ -786,6 +791,7 @@ GROUP BY
     Product
 ORDER BY
     SalesValue DESC;
+
 
 -- Top Product Categories by Profit for the West Region in 2020
 SELECT TOP 3
@@ -801,6 +807,7 @@ GROUP BY
 ORDER BY
     TotalProfit DESC;
 
+
 -- Top Product Categories by Profit for the West Region in 2021
 SELECT TOP 3
     Product,
@@ -814,6 +821,7 @@ GROUP BY
     Product
 ORDER BY
     TotalProfit DESC;
+
 
 -- Top 3 Product Categories by Sales in South Region for 2020
 WITH RankedCategories AS (
@@ -839,6 +847,7 @@ WHERE
 ORDER BY
     Rank;
 
+
 -- Top 3 Product Categories by Sales in South Region for 2021
 WITH RankedCategories AS (
     SELECT
@@ -862,6 +871,7 @@ WHERE
     Rank <= 3
 ORDER BY
     Rank;
+
 
 -- Units Sold for Top 3 Product Categories in South Region for 2020
 WITH TopCategories AS (
@@ -903,6 +913,7 @@ WHERE
 ORDER BY
     t.Rank;
 
+
 -- Units Sold for Top 3 Product Categories in South Region for 2021
 WITH TopCategories AS (
     SELECT
@@ -943,6 +954,7 @@ WHERE
 ORDER BY
     t.Rank;
 
+
 -- Total Sales by Retailer for 2020 and 2021
 SELECT 
     Retailer, 
@@ -958,6 +970,7 @@ GROUP BY
 ORDER BY 
     Retailer, 
     Year;
+
 
 -- Sales Comparison for the Top 5 Retailers Between 2020 and 2021
 WITH RetailerSales AS (
