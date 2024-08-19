@@ -26,24 +26,35 @@ For scenarios where I calculate multiple metrics (like `TotalSales` and `Average
 
 The queries I’ve prepared cover a broad range of analyses, from simple aggregations to more complex rankings and comparisons. The structure and explanations I’ve added make the SQL highly readable and easy to understand, which is essential for maintaining and sharing my work.
 
+---
 
-```USE [YEMIFATODU2db];
+```sql
+
+USE [YEMIFATODU2db];
 
 -- Retrieve all columns from the ADIDDASSALE table
 SELECT *
-FROM [dbo].[ADIDDASSALE];```
+FROM [dbo].[ADIDDASSALE];
+```
 
+---
+
+```sql
 
 -- Calculate the overall total sales for both years combined
-```SELECT
+SELECT
     SUM(Total_Sales) AS OverallTotalSales
 FROM
     [dbo].[ADIDDASSALE]
 WHERE
-    YEAR(invoice_date) IN (2020, 2021);```
+    YEAR(invoice_date) IN (2020, 2021);
+```
 
+---
+
+```sql
 -- Calculate the total sales for each region for the years 2020 and 2021
-``SELECT
+SELECT
     YEAR(invoice_date) AS Year,      
     Region,                           
     SUM(Total_Sales) AS TotalSales   
@@ -55,11 +66,14 @@ WHERE
     Region                           
 ORDER BY
     Year,                           
-    Region;```                           
+    Region;
+```
+                           
+---
 
-
+```sql
 -- Average Sales Per Region for 2020 and 2021
-``SELECT
+SELECT
     Region,
     AVG(Total_Sales) AS AverageSales
 FROM
@@ -67,10 +81,14 @@ FROM
 WHERE
     YEAR(invoice_date) IN (2020, 2021)
 GROUP BY
-    Region;```
+    Region;
+```
 
+---
+
+```sql
 -- Retrieve the total sales for each region, ordered by highest sales per year
-```SELECT
+SELECT
     YEAR(invoice_date) AS Year,
     Region,
     SUM(Total_Sales) AS TotalSales
@@ -84,7 +102,10 @@ GROUP BY
 ORDER BY
     Year,
     TotalSales DESC;
+```
+---
 
+```sql
 -- Find the highest sales region for each year
 SELECT
     rs.Year,
@@ -129,6 +150,10 @@ ON rs.Year = max_sales.Year
 AND rs.TotalSales = max_sales.MaxSales
 ORDER BY
     rs.Year;
+```
+---
+
+```sql
 
 -- Find the minimum sales in each region per year
 ;WITH RegionalSales AS (
@@ -165,10 +190,14 @@ ON
     rs.Year = ms.Year
     AND rs.TotalSales = ms.MinSales
 ORDER BY
-    rs.Year;```
+    rs.Year;
+```
 
+---
+
+```sql
 -- Average Sale in Each Region Per Year
-```SELECT
+SELECT
     YEAR(invoice_date) AS Year,
     Region,
     AVG(Total_Sales) AS AverageSales
@@ -181,11 +210,14 @@ GROUP BY
     Region
 ORDER BY
     Year,
-    Region;```
+    Region;
+```
 
+---
 
+```sql
 -- Calculate Total and Average Sales for Each Region and Year
-```SELECT
+SELECT
     YEAR(invoice_date) AS Year,
     Region,
     SUM(Total_Sales) AS TotalSales,
@@ -199,10 +231,14 @@ GROUP BY
     Region
 ORDER BY
     Year,
-    Region;```
+    Region;
+```
 
+---
+
+```sql
 -- Total Units Sold for Each Year
-```SELECT
+SELECT
     YEAR(invoice_date) AS Year,
     SUM(Units_Sold) AS TotalUnitsSold
 FROM
@@ -212,10 +248,14 @@ WHERE
 GROUP BY
     YEAR(invoice_date)
 ORDER BY
-    Year;```
+    Year;
+```
 
+---
+
+```sql
 -- Total Units Sold for Each Region and Year
-```SELECT
+SELECT
     YEAR(invoice_date) AS Year,
     Region,
     SUM(Units_Sold) AS TotalUnitsSold
@@ -228,10 +268,14 @@ GROUP BY
     Region
 ORDER BY
     Year,
-    Region;```
+    Region;
+```
 
+---
+
+```sql
 -- Calculate the Average Units Sold Per Region for Each Year
-```SELECT
+SELECT
     YEAR(invoice_date) AS Year,
     Region,
     AVG(Units_Sold) AS AverageUnitsSold
@@ -244,10 +288,13 @@ GROUP BY
     Region
 ORDER BY
     Year,
-    Region;```
+    Region;
+```
+---
 
+```SQL
 -- The Region with the Highest Total Units Sold for Each Year (2020 and 2021)
-```;WITH RegionalUnits AS (
+;WITH RegionalUnits AS (
     SELECT
         YEAR(invoice_date) AS Year,
         Region,
@@ -279,10 +326,13 @@ WHERE
     Rank = 1
 ORDER BY
     Year,
-    Region;```
+    Region;
+```
+---
 
+```SQL
 -- The Region with the Lowest Total Units Sold for Each Year (2020 and 2021)
-```;WITH RegionalUnits AS (
+;WITH RegionalUnits AS (
     SELECT
         YEAR(invoice_date) AS Year,
         Region,
@@ -313,10 +363,13 @@ FROM
 WHERE
     Rank = 1
 ORDER BY
-    Year;```
+    Year;
+```
+---
 
+```SQL
 -- The Region with the Lowest Total Operating Profit for Each Year (2020 and 2021)
-```;WITH RegionalProfit AS (
+;WITH RegionalProfit AS (
     SELECT
         YEAR(invoice_date) AS Year,
         Region,
@@ -347,10 +400,13 @@ FROM
 WHERE
     Rank = 1
 ORDER BY
-    Year;```
+    Year;
+```
+---
 
+```SQL
 -- Calculate the Total Operating Profit for Each Year
-```SELECT
+SELECT
     YEAR(invoice_date) AS Year,
     SUM(Operating_Profit) AS TotalOperatingProfit
 FROM
@@ -360,10 +416,13 @@ WHERE
 GROUP BY
     YEAR(invoice_date)
 ORDER BY
-    Year;```
+    Year;
+```
+---
 
+```sql
 -- Calculate the Average Operating Profit Per Region for Each Year
-```SELECT
+SELECT
     YEAR(invoice_date) AS Year,
     Region,
     AVG(Operating_Profit) AS AverageOperatingProfit
@@ -376,10 +435,12 @@ GROUP BY
     Region
 ORDER BY
     Year,
-    Region;```
-
+    Region;
+```
+---
+```sql
 -- Regional Sales Breakdown for Each Year
-```;WITH RegionalData AS (
+;WITH RegionalData AS (
     SELECT
         YEAR(invoice_date) AS Year,
         Region,
@@ -419,11 +480,13 @@ ON
     r.Year = o.Year
 ORDER BY
     r.Year,
-    r.Region;```
+    r.Region;
+```
+---
 
-
+```sql
 -- Regional Breakdown for Each Year (Example for South Region)
-```;WITH RegionalData AS (
+;WITH RegionalData AS (
     SELECT
         YEAR(invoice_date) AS Year,
         Region,
@@ -437,12 +500,14 @@ ORDER BY
         AND YEAR(invoice_date) IN (2020, 2021)
     GROUP BY
         YEAR(invoice_date),
-        Region```
+        Region
 )
+```
+---
 
-
+```sql
 -- Month-by-Month Sales Analysis for South Region
-```;WITH MonthlySales AS (
+;WITH MonthlySales AS (
     SELECT
         YEAR(invoice_date) AS Year,
         MONTH(invoice_date) AS Month,
@@ -482,10 +547,13 @@ JOIN
 ON
     m.Year = h.Year
 ORDER BY
-    m.Year, m.Month ASC;```
+    m.Year, m.Month ASC;
+```
+---
 
+```sql
 -- Highest and Lowest Quarterly Sales for South Region
-```;WITH QuarterlySales AS (
+;WITH QuarterlySales AS (
     SELECT
         YEAR(invoice_date) AS Year,
         DATEPART(QUARTER, invoice_date) AS Quarter,
@@ -510,10 +578,13 @@ GROUP BY
     Year,
     Quarter
 ORDER BY
-    Year, Quarter;```
+    Year, Quarter;
+```
+---
 
+```sql
 -- Highest and Lowest Quarterly Sales for West Region
-```WITH QuarterlySales AS (
+WITH QuarterlySales AS (
     SELECT
         YEAR(invoice_date) AS Year,
         DATEPART(QUARTER, invoice_date) AS Quarter,
@@ -538,10 +609,13 @@ GROUP BY
     Year,
     Quarter
 ORDER BY
-    Year, Quarter;```
+    Year, Quarter;
+```
+---
 
+```sql
 -- Highest and Lowest Quarterly Sales for Northeast Region
-```WITH QuarterlySales AS (
+;WITH QuarterlySales AS (
     SELECT
         YEAR(invoice_date) AS Year,
         DATEPART(QUARTER, invoice_date) AS Quarter,
@@ -566,10 +640,13 @@ GROUP BY
     Year,
     Quarter
 ORDER BY
-    Year, Quarter;``
+    Year, Quarter;
+```
+---
 
+```sql
 -- Highest and Lowest Quarterly Sales for Southeast Region
-```WITH QuarterlySales AS (
+;WITH QuarterlySales AS (
     SELECT
         YEAR(invoice_date) AS Year,
         DATEPART(QUARTER, invoice_date) AS Quarter,
@@ -594,10 +671,14 @@ GROUP BY
     Year,
     Quarter
 ORDER BY
-    Year, Quarter;```
+    Year, Quarter;
+```
+---
+
+```sql
 
 -- Highest and Lowest Quarterly Sales for Midwest Region
-```WITH QuarterlySales AS (
+;WITH QuarterlySales AS (
     SELECT
         YEAR(invoice_date) AS Year,
         DATEPART(QUARTER, invoice_date) AS Quarter,
@@ -622,10 +703,13 @@ GROUP BY
     Year,
     Quarter
 ORDER BY
-    Year, Quarter;```
+    Year, Quarter;
+```
+---
 
+```sql
 -- Average Price per Unit of Products Sold for Each Year
-```SELECT
+SELECT
     YEAR(invoice_date) AS Year,
     AVG(Price_per_Unit) AS AveragePrice
 FROM
@@ -633,10 +717,13 @@ FROM
 WHERE
     YEAR(invoice_date) IN (2020, 2021)
 GROUP BY
-    YEAR(invoice_date);```
+    YEAR(invoice_date);
+```
+---
 
+```sql
 -- Minimum and Maximum Price per Unit of Products Sold for Each Year
-```SELECT
+SELECT
     YEAR(invoice_date) AS Year,
     MIN(Price_per_Unit) AS MinPrice,
     MAX(Price_per_Unit) AS MaxPrice
@@ -645,10 +732,12 @@ FROM
 WHERE
     YEAR(invoice_date) IN (2020, 2021)
 GROUP BY
-    YEAR(invoice_date);```
-
+    YEAR(invoice_date);
+```
+---
+```sql
 -- Correlation Between Price per Unit and Units Sold for Each Year
-```WITH Stats AS (
+;WITH Stats AS (
     SELECT
         YEAR(invoice_date) AS Year,
         [Price_per_Unit] AS PricePerUnit,
@@ -677,10 +766,13 @@ SELECT
 FROM
     Covariance
 ORDER BY
-    Year;```
+    Year;
+```
+---
 
+```sql
 -- Correlation Between Price per Unit and Units Sold
-```SELECT 
+SELECT 
     YEAR(invoice_date) AS Year,
     CORR(Price_per_Unit, Units_Sold) AS CorrelationCoefficient
 FROM 
@@ -689,7 +781,10 @@ WHERE
     YEAR(invoice_date) IN (2020, 2021)
 GROUP BY 
     YEAR(invoice_date);
+```
+---
 
+```sql
 -- Top Product Categories by Sales for Each Year
 WITH CategorySales AS (
     SELECT
@@ -722,10 +817,12 @@ WHERE
     RowNum <= 3
 ORDER BY
     Year,
-    RowNum;```
-
+    RowNum;
+```
+---
+```sql
 -- Top 3 Product Categories by Sales for the South Region
-```SELECT TOP 3
+SELECT TOP 3
     Product AS Category,
     SUM(Total_Sales) AS SalesValue
 FROM
@@ -735,10 +832,13 @@ WHERE
 GROUP BY
     Product
 ORDER BY
-    SalesValue DESC;```
+    SalesValue DESC;
+```
+---
 
+```sql
 -- Top 3 Product Categories by Sales for the West Region
-```SELECT TOP 3
+SELECT TOP 3
     Product AS Category,
     SUM(Total_Sales) AS SalesValue
 FROM
@@ -748,10 +848,13 @@ WHERE
 GROUP BY
     Product
 ORDER BY
-    SalesValue DESC;```
+    SalesValue DESC;
+```
+---
 
+```sql
 -- Top 3 Product Categories by Sales for the Northeast Region
-```SELECT TOP 3
+SELECT TOP 3
     Product AS Category,
     SUM(Total_Sales) AS SalesValue
 FROM
@@ -761,11 +864,12 @@ WHERE
 GROUP BY
     Product
 ORDER BY
-    SalesValue DESC;```
-
-
+    SalesValue DESC;
+```
+---
+```sql
 -- Top 3 Product Categories by Sales for the Southeast Region
-```SELECT TOP 3
+SELECT TOP 3
     Product AS Category,
     SUM(Total_Sales) AS SalesValue
 FROM
@@ -775,11 +879,13 @@ WHERE
 GROUP BY
     Product
 ORDER BY
-    SalesValue DESC;```
-
+    SalesValue DESC;
+```
+---
+```sql
 
 -- Top 3 Product Categories by Sales for the Midwest Region
-```SELECT TOP 3
+SELECT TOP 3
     Product AS Category,
     SUM(Total_Sales) AS SalesValue
 FROM
@@ -789,11 +895,12 @@ WHERE
 GROUP BY
     Product
 ORDER BY
-    SalesValue DESC;```
-
-
+    SalesValue DESC;
+```
+---
+```sql
 -- Top Product Categories by Profit for the West Region in 2020
-```SELECT TOP 3
+SELECT TOP 3
     Product,
     SUM(Operating_Profit) AS TotalProfit
 FROM
@@ -804,11 +911,12 @@ WHERE
 GROUP BY
     Product
 ORDER BY
-    TotalProfit DESC;```
-
-
--- Top Product Categories by Profit for the West Region in 2021
-```SELECT TOP 3
+    TotalProfit DESC;
+```
+---
+```sql
+--Top Product Categories by Profit for the West Region in 2021
+SELECT TOP 3
     Product,
     SUM(Operating_Profit) AS TotalProfit
 FROM
@@ -819,11 +927,14 @@ WHERE
 GROUP BY
     Product
 ORDER BY
-    TotalProfit DESC;```
+    TotalProfit DESC;
+```
+---
 
+```sql
 
 -- Top 3 Product Categories by Sales in South Region for 2020
-```WITH RankedCategories AS (
+;WITH RankedCategories AS (
     SELECT
         Product,
         SUM(Total_Sales) AS TotalSales,
@@ -844,11 +955,14 @@ FROM
 WHERE
     Rank <= 3
 ORDER BY
-    Rank;```
+    Rank;
+```
+---
 
+```sql
 
 -- Top 3 Product Categories by Sales in South Region for 2021
-```WITH RankedCategories AS (
+;WITH RankedCategories AS (
     SELECT
         Product,
         SUM(Total_Sales) AS TotalSales,
@@ -869,11 +983,13 @@ FROM
 WHERE
     Rank <= 3
 ORDER BY
-    Rank;```
+    Rank;
+```
+---
 
-
+```sql
 -- Units Sold for Top 3 Product Categories in South Region for 2020
-```WITH TopCategories AS (
+;WITH TopCategories AS (
     SELECT
         Product,
         SUM(Total_Sales) AS TotalSales,
@@ -910,11 +1026,13 @@ ON
 WHERE
     t.Rank <= 3
 ORDER BY
-    t.Rank;```
+    t.Rank;
+```
+---
 
-
+```sql
 -- Units Sold for Top 3 Product Categories in South Region for 2021
-```WITH TopCategories AS (
+;WITH TopCategories AS (
     SELECT
         Product,
         SUM(Total_Sales) AS TotalSales,
@@ -951,11 +1069,14 @@ ON
 WHERE
     t.Rank <= 3
 ORDER BY
-    t.Rank;```
+    t.Rank;
+```
+---
 
+```sql
 
 -- Total Sales by Retailer for 2020 and 2021
-```SELECT 
+SELECT 
     Retailer, 
     YEAR(invoice_date) AS Year, 
     SUM(Total_Sales) AS TotalSales
@@ -968,11 +1089,13 @@ GROUP BY
     YEAR(invoice_date)
 ORDER BY 
     Retailer, 
-    Year;```
+    Year;
+```
+---
 
-
+```sql
 -- Sales Comparison for the Top 5 Retailers Between 2020 and 2021
-```WITH RetailerSales AS (
+;WITH RetailerSales AS (
     SELECT
         Retailer,
         YEAR(invoice_date) AS Year,
@@ -1010,5 +1133,6 @@ ON
     r.Retailer = t.Retailer
 ORDER BY
     r.Retailer,
-    r.Year;```
+    r.Year;
+```
 
