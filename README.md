@@ -1,5 +1,16 @@
+This repository presents the SQL queries that were employed to extract insights related to **sales performance**, **regional sales trends**, and key metrics driving business growth for the **ADIDAS PRODUCT SALES ANALYSIS FOR THE YEAR 2020 AND 2021** project 
 
-**Suggestions and Considerations:**
+**Key SQL Skills**:  
+- Joins  
+- Subqueries  
+- Window Functions  
+- Aggregation  
+- Group By  
+
+Explore the full project repository:  
+**[ADIDAS PRODUCT SALES ANALYSIS FOR THE YEAR 2020 AND 2021](https://github.com/yemifatodu/ADIDAS-PRODUCT-SALES-ANALYSIS-FOR-THE-YEAR-2020-AND-2021#adidas-product-sales-analysis-for-the-year-2020-and-2021)**
+
+---
 
 **Use of Aliases:**  
 I consider using shorter or more descriptive aliases for tables and columns. This approach makes my queries easier to read and manage, especially when I’m dealing with complex queries.
